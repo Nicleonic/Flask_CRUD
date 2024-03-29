@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+
+{% block title %}  {{pageTitle}}{% endblock%}
+
+
+
+{% block body%}
+<div class="container container-connexion  ">
+  <form class="col-sm-12 col-md-6 col-lg-6  ">
+      <h1 class="h3 mb-3 fw-normal text-center mb-5">Inscription</h1>
+  
+      <div class="form-floating w-100 col-12 mt-5 ">
+        <input type="number" class="form-control" id="floatingInput" placeholder="name@example.com">
+        <label for="floatingInput">Matricule</label>
+      </div>
+      <div class="form-floating ">
+        <input type="password" class="form-control"  id="pswrd" placeholder="Password" onkeyup="checkPassword(this.value)">
+        <label for="floatingPassword">Mot de pass</label>
+        <span id="viewerBtn" class="border"></span>
+      </div>
+      <div class="form-floating ">
+        <input type="password" class="form-control"  id="pswrdB" placeholder="Password" onkeyup="checkPassword(this.value)">
+        <label for="floatingPassword">Confrmer mot de pass</label>
+        <span id="viewerBtn" class="border"></span>
+      </div>
+  
+      
+      <button class="w-100 btn btn-lg btn-primary" type="submit">valider</button>
+  </form>
+    <p class="author text-center text-muted bottom-0">&copy; nicleonic 2024</p>
+</div>
+
+{% endblock%}

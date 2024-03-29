@@ -1,0 +1,104 @@
+
+
+
+{% extends 'base.html' %}
+
+
+{% block title %}  {{pageTitle}} {% endblock%}
+
+
+
+{% block body%}
+
+<div class='container  mt-5'>
+
+  
+
+  <h3 class='text-center f-bold'> Liste des etudiant </h3>
+  <div class="btn-group d-block px-5 w-100 ">
+    <button type="button" id="add" class="btn btn-success ">Ajouter un étudiant</button>
+  </div>
+  <div class="bd-example container mt-2">
+    <table class="table table-striped ">
+      <thead>
+      <tr>
+        <th scope="col">Matricule</th>
+        <th scope="col">Nom</th>
+        <th scope="col">Prénom</th>
+        <th scope="col">Promotion</th>
+        <th scope="col">Mot de pass</th>
+        <th scope="col">Options</th>
+
+      </tr>
+      </thead>
+      <tbody>
+        
+        {% for user in users %}
+        <tr>
+          <th scope="row">{{user[0]}}</th>
+          <td> {{user[1]}} </td>
+          <td>{{user[2]}}</td>
+          <td>{{user[4]}}</td>
+          <td>{{user[3]}}</td>
+          
+          <td>
+            <div class="btn-group">
+              <button type="button" id="clear" class="btn btn-danger">Supprimer</button>
+              <button type="button" id="update" class="btn btn-primary"  data-toggle="modal" data-target="#mymodal" >Modifier</button>
+             
+             
+            </div>
+          </td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+<!-- -->
+
+<div id="mymodal" class="modal "  role="dialog">
+  <div class="modal-content">
+
+    <div class="modal-header">
+      <h1 class="h3 mb-3 fw-normal text-center modal-title">Modifier</h1>
+    </div>
+    <div class="modal-body">
+      <form action="" method="POST">
+  
+        <div class="form-group">
+          <label for="matricule">Matricule</label>
+          <input type="number" class="form-control" id="matricule" >
+        </div>
+        <div class="form-group">
+          <label for="nom">Nom</label>
+          <input type="text" class="form-control" id="nom" >
+        </div>
+        <div class="form-group">
+          <label for="prenom">Prénom</label>
+          <input type="text" class="form-control" id="prenom" >
+        </div>
+    
+        <div class="form-group ">
+          <label for="pswrdB">Mot de pass</label>
+          <input type="password" class="form-control"  id="pswrdB" placeholder="Password" onkeyup="checkPassword(this.value)">
+        </div>
+    
+        <div class="form-group">
+          <select class="form-select mt-2" name="prom" id="prom">
+              <option value="">Selectionner Promotion</option>
+              
+          </select>
+        </div>
+        <button class="btn btn-primary w-100 py-2" type="submit">valider</button>
+       
+      </form>
+    </div>
+  
+  </div>
+</div>
+
+
+{% endblock%}

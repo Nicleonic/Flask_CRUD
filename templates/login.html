@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+
+{% block title %}  {{pageTitle}} {% endblock%}
+
+
+
+{% block body%}
+
+<div class="container container-connexion  ">
+  <h2 class="text-danger">   {% if message %} {{ message }}  {% else %}    {% endif %} </h2>
+  <form action="{{url_for('login')}}" method="POST" class="col-sm-12 form" >
+    <h1 class="h3 mb-3 fw-normal text-center mb-5">Connectez-vous</h1>
+
+    <div class="form-floating w-100 col-12 mt-5 ">
+      <input type="text" class="form-control" id="username" name="username" placeholder="name@example.com">
+      <label for="username">Nom</label>
+    </div>
+    <div class="form-floating ">
+      <input type="password" class="form-control"  id="pswrd" placeholder="Password" name="pswd" onkeyup="checkPassword(this.value)">
+      <label for="pswd">Mot de pass</label>
+      <span id="viewerBtn" class="border"></span>
+    </div>
+
+    <div class="checkbox mb-3">
+      <label>
+        
+    </div>
+    <button class="w-100 btn btn-lg btn-primary" type="submit">connexion</button>
+  </form>
+  <p class="author text-center text-muted bottom-0">&copy; nicleonic 2024</p>
+</div>
+
+
+<script>
+let pswrd = document.getElementById('pswrd');
+let viewerBtn = document.getElementById('viewerBtn');
+
+
+
+
+
+viewerBtn.addEventListener("click", (e)=>{
+  if(pswrd.type === 'password'){
+    pswrd.setAttribute('type', 'text');
+    viewerBtn.classList.add('hide');
+  }else{
+    pswrd.setAttribute('type', 'password');
+    viewerBtn.classList.remove('hide');
+  }
+})
+
+</script>
+
+{% endblock%}

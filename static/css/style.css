@@ -1,0 +1,75 @@
+@import url('./../fontweb/css/fontawesome.min.css');
+@import url('./../fontweb/css/all.min.css');
+
+
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.container-connexion{
+  /* border: 5px solid darkblue; */
+  /* border: 3px solid rebeccapurple; */
+  /* position: relative; */
+  min-height: 100vh;
+  padding: 0;
+  width: 100vW;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.author{
+  position: absolute;
+  width: 100%;
+  /* border: 2px solid firebrick; */
+  margin-bottom: 0;
+  bottom: 0;
+}
+
+/* ----------------- BOOTSTRAP */
+
+.form-floating{
+  position: relative;
+}
+/* ------------------------- viewer ------------------------ */
+
+#viewerBtn::before{
+  content: '\f06e';
+  font-family: fontAwesome;
+}
+#viewerBtn{
+  position: absolute;
+  bottom: 12px;
+  right: 10px;
+  width: 32px;
+  height: 32px;
+  background: rgba(0,0,0,0.03);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+#viewerBtn.hide::before{
+  content: '\f070';
+  font-family: fontAwesome;
+}
+/* ------------------------- viewer  END ------------------------ */
+  
+
+
+/*             media queries */
+@media screen and (min-width: 681px) {
+  .form{
+    width: 50%;
+  }
+}
+
+@media screen and (max-width: 680px) {
+  .form{
+    width: 75%;
+    /* border: 3px solid darkgoldenrod; */
+  }
+}

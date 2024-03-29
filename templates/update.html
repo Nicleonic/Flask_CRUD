@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+
+{% block title %}  {{pageTitle}}{% endblock%}
+
+
+
+{% block body%}
+
+    {% for data in user %}
+
+        <div class="container container-connexion  ">
+            <form action="/update/{{data[0]}}" method="POST"  class="form">
+
+                <h1 class="h3 mb-3 fw-normal text-center mb-5">Modifier</h1>
+                <div class="form-floating w-100 col-12  ">
+                    <input value="{{data[1]}}" type="text" class="form-control" name="nom" id="nom" >
+                    <label  for="nom">Nom</label>
+                </div>
+                <div class="form-floating w-100 col-12  ">
+                <input value="{{data[2]}}" type="text" class="form-control" name="prenom"  id="prenom" >
+                <label  for="prenom">Prénom</label>
+                </div>
+                <div class="form-floating ">
+                    <input value="{{data[3]}}" type="date" class="form-control"  id="daten" name="date"  >
+                    <label for="daten">Date de naissance</label>
+                </div>
+                <button class="w-100 btn btn-lg btn-primary mt-2" type="submit">valider</button>
+            </form>
+             <p class="author text-center text-muted bottom-0">&copy; nicleonic 2024</p>
+        </div>
+
+    {% endfor %}
+
+
+{% endblock%}
