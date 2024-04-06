@@ -76,7 +76,7 @@
       <tbody>
         
         {% for user in users %}
-        <tr>
+        <tr id="row-{{user[0]}}" >
           <th scope="row">{{user[0]}}</th>
           <td> {{user[1]}} </td>
           <td>{{user[2]}}</td>
@@ -86,7 +86,7 @@
             <div class="btn-group">
               <a href="/delete/{{user[0]}}"  class="btn btn-danger clear">Supprimer</a>
               <a href="/update/{{user[0]}}" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalUpdate{{user[0]}}">Modifier </a>
-
+              <a href="#" class="btn btn-warning dechif-button" data-id="{{user[0]}}">Déchiffrer</a>
              
             </div>
           </td>
@@ -157,6 +157,45 @@
             });
         })
     }
+
+    //========================== dechif
+    document.addEventListener('DOMContentLoaded', function() {
+      var dechifButtons = document.getElementsByClassName('dechif-button');
+      Array.from(dechifButtons).forEach(function(button) {
+        button.addEventListener('click', function(event) {
+          event.preventDefault();
+          var id = button.getAttribute('data-id');
+          dechifData(id);
+        });
+      });
+    
+      function dechifData(id) {
+        fetch('/dechif/' + id)
+          .then(function(response) {
+            if (!response.ok) {
+              console.log(`${error}`)
+              throw new Error('Erreur lors de la requête AJAX');
+            }
+            return response.json();
+          })
+          .then(function(data) {
+            // Mettre à jour le HTML avec les données déchiffrées
+            // Remplacez les sélecteurs et les manipulations du DOM par votre propre code
+            var row = document.getElementById('row-' + id);
+            row.innerHTML = `
+              <th scope="row">${data.mat}</th>
+              <td> ${data.nom}</td>
+              <td>${data.postnom}</td>
+              <td>${data.date}</td>
+              
+             
+            `;
+          })
+          .catch(function(error) {
+            console.log('Erreur lors de la requête AJAX :', error);
+          });
+      }
+    });
     
 
    

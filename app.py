@@ -1,4 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for
+
+import json
+from flask import jsonify
 # import datetime
 import database as base
 from ciph import RSA_Algo as cipher
@@ -54,7 +57,6 @@ def register():
     if request.method == 'POST':
         print('inscription')
         matricule = request.form['mat']
-        svMat = cipher.rsa(matricule, 33, 3)
         nom = request.form['nom']
         svNom = cipher.rsa(nom, 33, 3)
         prenom = request.form['prenom']
@@ -62,7 +64,7 @@ def register():
         date = request.form['date']
         
         regQuery = "INSERT INTO etudiant(matricule, nom, postnom, dateNaissance) VALUES (%s,%s,%s,%s)"
-        regValues = (svMat, svNom, svPrenom, date,)
+        regValues = (matricule, svNom, svPrenom, date,)
         # regValues = (matricule, nom, prenom, date)
 
         cursor = db.cursor()
@@ -97,6 +99,58 @@ def update(mat):
     cursor.execute("SELECT * FROM etudiant WHERE matricule = %s", (mat,))
     data = cursor.fetch()
     return render_template("update.html",pageTitle="update", user=data)
+
+
+# ========================================================== DECHIFFRER =======
+
+# @app.route("/dechif/<string:mat>", methods=["GET"])
+# def dechif(mat):
+#     cursor.execute("SELECT * FROM etudiant WHERE matricule = %s", (mat,))
+#     data = cursor.fetch()
+#     mat = data[0]
+#     nom = data[1]
+#     dechNom = cipher.dechRSA(nom, 33, 3)
+#     postnom = data[2]
+#     deshP = cipher.dechRSA(postnom, 33, 3)
+#     date = data[3]
+  
+    
+    
+
+
+#     decrypted_data = {
+#         'mat' : mat,
+#         'nom' : dechNom,
+#         'postNom' : dechNom,
+#         'date' : date
+#     }  
+
+#     return jsonify(decrypted_data)
+
+@app.route("/dechif/<string:mat>", methods=["GET"])
+def dechif(mat):
+    cursor.execute("SELECT * FROM etudiant WHERE matricule = %s", (mat,))
+    data = cursor.fetchall()
+    mat = data[0]
+    print("mat from the database " ,mat , "\\n😛")
+    nom = data[1]
+    
+    dechNom = cipher.dechRSA(nom, 33, 3)
+    postnom = data[2]
+    deshP = cipher.dechRSA(postnom, 33, 3)
+    date = data[3]
+  
+    decrypted_data = {
+        'mat': mat,
+        'nom': dechNom,
+        'postNom': deshP,
+        'date': date
+    }  
+
+    # Fermer le curseur et la connexion à la base de données
+    cursor.close()
+
+    return jsonify(decrypted_data)
 
 message = "hi"
 

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Bouton de déchiffrement</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+  <table id="myTable">
+    <tr>
+      <td>Données chiffrées</td>
+      <td id="encryptedData">...</td>
+    </tr>
+  </table>
+  
+  <button id="decryptButton" onclick="decryptRow()">Déchiffrer</button>
+
+  <script>
+    function decryptRow() {
+      // Récupérer l'ID de l'élément à déchiffrer
+      var id = 123; // Remplacez par votre ID réel ou récupérez-le dynamiquement depuis la page
+
+      // Effectuer une requête AJAX vers le serveur avec l'ID
+      $.ajax({
+        url: '/decrypt',
+        method: 'POST',
+        data: { id: id },
+        success: function(response) {
+          // Mettre à jour la ligne de la table avec le texte déchiffré
+          $('#encryptedData').text(response.decryptedText);
+        },
+        error: function(xhr, status, error) {
+          console.log('Erreur lors de la requête AJAX :', error);
+        }
+      });
+    }
+  </script>
+  <script>
+    document.getElementById('decryptButton').addEventListener('click', function() {
+      var id = 123; // Remplacez par votre ID réel ou récupérez-le dynamiquement depuis la page
+      
+      fetch('/decrypt', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ id: id })
+      })
+      .then(function(response) {
+        if (!response.ok) {
+          throw new Error('Erreur lors de la requête AJAX');
+        }
+        return response.json();
+      })
+      .then(function(data) {
+        document.getElementById('encryptedData').textContent = data.decryptedText;
+      })
+      .catch(function(error) {
+        console.log('Erreur lors de la requête AJAX:', error);
+      });
+    });
+  </script>
+</body>
+</html>
+
+
+{% for user in users %}
+<tr>
+  <!-- ... Autres colonnes de la table ... -->
+  <td>
+    <div class="btn-group">
+      <!-- ... Autres boutons ... -->
+      <a href="#" class="btn btn-warning dechif-button" data-id="{{user[0]}}">Déchiffrer</a>
+    </div>
+  </td>
+</tr>
+{% endfor %}
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var dechifButtons = document.getElementsByClassName('dechif-button');
+  Array.from(dechifButtons).forEach(function(button) {
+    button.addEventListener('click', function(event) {
+      event.preventDefault();
+      var id = button.getAttribute('data-id');
+      dechifData(id);
+    });
+  });
+
+  function dechifData(id) {
+    fetch('/dechif/' + id)
+      .then(function(response) {
+        if (!response.ok) {
+          throw new Error('Erreur lors de la requête AJAX');
+        }
+        return response.json();
+      })
+      .then(function(data) {
+        // Mettre à jour le HTML avec les données déchiffrées
+        // Remplacez les sélecteurs et les manipulations du DOM par votre propre code
+        var row = document.getElementById('row-' + id);
+        var cell = row.querySelector('.decrypted-data-cell');
+        cell.textContent = data.decryptedText;
+      })
+      .catch(function(error) {
+        console.log('Erreur lors de la requête AJAX :', error);
+      });
+  }
+});
+</script>

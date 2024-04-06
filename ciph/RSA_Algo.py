@@ -45,26 +45,65 @@ def rsa(plainText, n, e):
     cipherText = ""
     codeChart = "abcdefghijklmnopqrstuvwxyz"
 
-    for key in plainText:
-        if key in codeChart:
-            char = codeChart.index(key)
-            c = str(int(m.pow(char, e) % n))
-            cipherText += c + " "
-    
-    return cipherText.strip()
+    for i in plainText:
+        char = codeChart.index(i)
+        c = int(m.pow(char, e) % n)
+        cipherText += str(c) + " "
+        
+    return cipherText
 
+
+import math as m
 
 def dechRSA(messageChiffre, d, n):
     plainText = ""
     codeChart = "abcdefghijklmnopqrstuvwxyz"
-    cipherText = messageChiffre.split()
+    cipherTextList = messageChiffre.split()
 
-    for c in cipherText:
-        char = int(m.pow(int(c), d) % n)
-        if char < len(codeChart):
-            plainText += codeChart[char]
+    for i in cipherTextList:
+        char = int(i)
+        decrypted_char = codeChart[int(m.pow(char, d) % n)]
+        plainText += decrypted_char
 
     return plainText
+
+
+# def rsa(plainText, n, e):
+#     cipherText = ""
+#     codeChart = "abcdefghijklmnopqrstuvwxyz"
+
+#     for i in plainText:
+#         char = codeChart.index(i)
+#         c = int(m.pow(char, e) % n)
+#         cipherText += str(c)
+        
+#     return cipherText
+
+
+# def rsa(plainText, n, e):
+#     cipherText = ""
+#     codeChart = "abcdefghijklmnopqrstuvwxyz"
+
+#     for key in plainText:
+#         if key in codeChart:
+#             char = codeChart.index(key)
+#             c = str(int(m.pow(char, e) % n))
+#             cipherText += c + " "
+    
+#     return cipherText.strip()
+
+
+# def dechRSA(messageChiffre, d, n):
+#     plainText = ""
+#     codeChart = "abcdefghijklmnopqrstuvwxyz"
+#     cipherText = messageChiffre.split()
+
+#     for c in cipherText:
+#         char = int(m.pow(int(c), d) % n)
+#         if char < len(codeChart):
+#             plainText += codeChart[char]
+
+#     return plainText
 
 # TEST
 
