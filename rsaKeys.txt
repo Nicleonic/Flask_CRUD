@@ -1,0 +1,72 @@
+Voici 10 exemples de groupes de clés valides pour le chiffrement RSA :
+
+Groupe 1:
+
+p = 61
+q = 53
+e = 17
+n = 3233
+d = 2753
+Groupe 2:
+
+p = 89
+q = 37
+e = 5
+n = 3293
+d = 1589
+Groupe 3:
+
+p = 113
+q = 23
+e = 7
+n = 2599
+d = 1199
+Groupe 4:
+
+p = 103
+q = 47
+e = 13
+n = 4841
+d = 4217
+Groupe 5:
+
+p = 127
+q = 31
+e = 17
+n = 3937
+d = 2753
+Groupe 6:
+
+p = 131
+q = 43
+e = 7
+n = 5647
+d = 3919
+Groupe 7:
+
+p = 179
+q = 19
+e = 5
+n = 3401
+d = 2725
+Groupe 8:
+
+p = 211
+q = 59
+e = 3
+n = 12449
+d = 8299
+Groupe 9:
+
+p = 199
+q = 53
+e = 5
+n = 10547
+d = 8437
+Groupe 10:
+
+p = 193
+q = 67
+e = 3
+n = 12931
+d = 8619

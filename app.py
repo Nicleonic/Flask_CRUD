@@ -61,13 +61,14 @@ def register():
         svPrenom = cipher.rsa(prenom, 33, 3)
         date = request.form['date']
         
-        
-        
         regQuery = "INSERT INTO etudiant(matricule, nom, postnom, dateNaissance) VALUES (%s,%s,%s,%s)"
+        regValues = (svMat, svNom, svPrenom, date,)
         # regValues = (matricule, nom, prenom, date)
-        regValues = (svMat, svNom, svPrenom, date)
-        cursor.execute(regQuery,regValues)
+
+        cursor = db.cursor()
+        cursor.execute(regQuery, regValues)
         db.commit()
+        cursor.close()
         return redirect(url_for('index'))
     
     return render_template("inscription.html", pageTitle="Inscription")
@@ -102,10 +103,10 @@ message = "hi"
 print(cipher.rsa(message, 33, 3))
 print(" -----------Dechiffrement--------")
 
-cipherText = [13,17]
+
 
 # print(rsa(message, 33, 3))
-print(cipher.dechRSA(cipherText,7,33))
+print(cipher.dechRSA(cipher.rsa(message, 33, 3),7,33))
 
 
 if __name__ == '__main__':
